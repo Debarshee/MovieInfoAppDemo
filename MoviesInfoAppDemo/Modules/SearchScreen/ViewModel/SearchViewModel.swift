@@ -22,6 +22,7 @@ class SearchViewModel {
     }
     
     private var showInfoData: [MovieAndTVResults]?
+    let router = Router<MovieApi>()
     
     init(delegate: SearchViewModelDelegate) {
         self.delegate = delegate
@@ -29,34 +30,68 @@ class SearchViewModel {
     }
     
     func fetchData(type: String) {
-        let url = "\(ApiDetails.baseUrl)\(type)/popular?api_key=0736335c71dad875790ff173cf326a73&language=en-US&page=1"
-        NetworkManager.manager.getData(url: url) { [weak self] (result: Result<MoviesAndTVShow, AppError>) in
-            guard let self = self else { return }
-            switch result {
-            case .success(let data):
-                guard let data = data.results else { return }
-                self.dataSource = data.compactMap { SearchTableCellViewModel(searchListData: $0) }
-                self.showInfoData = data
-                
-            case .failure(let error):
-                print(error)
+        switch type {
+        case "movie":
+            self.router.request(.newMovies(page: 1)) { (result: Result<MoviesAndTVShow, AppError>) in
+                switch result {
+                case .success(let data):
+                    guard let data = data.results else { return }
+                    self.dataSource = data.compactMap { SearchTableCellViewModel(searchListData: $0) }
+                    self.showInfoData = data
+                    
+                case .failure(let error):
+                    print(error)
+                }
             }
+            
+        case "tv":
+            self.router.request(.newTVShows(page: 1)) { (result: Result<MoviesAndTVShow, AppError>) in
+                switch result {
+                case .success(let data):
+                    guard let data = data.results else { return }
+                    self.dataSource = data.compactMap { SearchTableCellViewModel(searchListData: $0) }
+                    self.showInfoData = data
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            
+        default:
+            break
         }
     }
     
     func fetchSearchedData(type: String, searchText: String) {
-        let url = "\(ApiDetails.baseUrl)search/\(type)?api_key=0736335c71dad875790ff173cf326a73&language=en-US&query=\(searchText)&page=1"
-        NetworkManager.manager.getData(url: url) { [weak self] (result: Result<MoviesAndTVShow, AppError>) in
-            guard let self = self else { return }
-            switch result {
-            case .success(let showData):
-                guard let data = showData.results else { return }
-                self.dataSource = data.compactMap { SearchTableCellViewModel(searchListData: $0) }
-                self.showInfoData = data
-                
-            case .failure(let error):
-                print(error)
+        switch type {
+        case "movie":
+            self.router.request(.searchMovie(page: 1, query: searchText)) { (result: Result<MoviesAndTVShow, AppError>) in
+                switch result {
+                case .success(let data):
+                    guard let data = data.results else { return }
+                    self.dataSource = data.compactMap { SearchTableCellViewModel(searchListData: $0) }
+                    self.showInfoData = data
+                    
+                case .failure(let error):
+                    print(error)
+                }
             }
+            
+        case "tv":
+            self.router.request(.searchTV(page: 1, query: searchText)) { (result: Result<MoviesAndTVShow, AppError>) in
+                switch result {
+                case .success(let data):
+                    guard let data = data.results else { return }
+                    self.dataSource = data.compactMap { SearchTableCellViewModel(searchListData: $0) }
+                    self.showInfoData = data
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            
+        default:
+            break
         }
     }
     

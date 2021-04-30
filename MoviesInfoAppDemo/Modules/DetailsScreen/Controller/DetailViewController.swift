@@ -80,6 +80,7 @@ class DetailViewController: UIViewController {
     }
 }
 
+// MARK: - Public functions
 extension DetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
