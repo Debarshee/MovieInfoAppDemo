@@ -92,18 +92,35 @@ class DetailViewModel {
     }
     
     func similarCollectionData(dataType: String, movieId: Int) {
-        let url = "\(ApiDetails.baseUrl)\(dataType)/\(movieId)/similar?api_key=0736335c71dad875790ff173cf326a73&language=en-US&page=1n-US"
-        NetworkManager.manager.getData(url: url) { [weak self] (result: Result<MoviesAndTVShow, AppError>) in
-            guard let self = self else { return }
-            switch result {
-            case .success(let data):
-                guard let data = data.results else { return }
-                self.similarCollectionDataSource = data.compactMap { SimilarCollectionCellViewModel(similarCollectionData: $0) }
-                self.showInfoData = data
-                
-            case .failure(let error):
-                print(error)
+        switch dataType {
+        case "movie":
+            self.router.request(.similarMovie(id: movieId)) { (result: Result<MoviesAndTVShow, AppError>) in
+                switch result {
+                case .success(let data):
+                    guard let data = data.results else { return }
+                    self.similarCollectionDataSource = data.compactMap { SimilarCollectionCellViewModel(similarCollectionData: $0) }
+                    self.showInfoData = data
+                    
+                case .failure(let error):
+                    print(error)
+                }
             }
+            
+        case "tv":
+            self.router.request(.similarTVShow(id: movieId)) { (result: Result<MoviesAndTVShow, AppError>) in
+                switch result {
+                case .success(let data):
+                    guard let data = data.results else { return }
+                    self.similarCollectionDataSource = data.compactMap { SimilarCollectionCellViewModel(similarCollectionData: $0) }
+                    self.showInfoData = data
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            
+        default:
+            break
         }
     }
 }

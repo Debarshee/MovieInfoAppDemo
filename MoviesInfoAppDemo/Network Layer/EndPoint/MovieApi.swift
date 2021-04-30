@@ -19,6 +19,8 @@ enum MovieApi {
     case tvCasts(id: Int)
     case searchMovie(page: Int, query: String)
     case searchTV(page: Int, query: String)
+    case similarTVShow(id: Int)
+    case similarMovie(id: Int)
 }
 
 extension MovieApi: EndPointType {
@@ -47,6 +49,10 @@ extension MovieApi: EndPointType {
             return "search/movie"
         case .searchTV:
             return "search/tv"
+        case .similarTVShow(let id):
+            return "tv/\(id)/similar"
+        case .similarMovie(let id):
+            return "movie/\(id)/similar"
         }
     }
     
@@ -127,6 +133,22 @@ extension MovieApi: EndPointType {
                                       urlParameters: [
                                         "page": page,
                                         "query": query,
+                                        "api_key": "0736335c71dad875790ff173cf326a73"
+                                      ]
+            )
+        
+        case .similarTVShow:
+            return .requestParameters(bodyParameters: nil,
+                                      bodyEncoding: .urlEncoding,
+                                      urlParameters: [
+                                        "api_key": "0736335c71dad875790ff173cf326a73"
+                                      ]
+            )
+            
+        case .similarMovie:
+            return .requestParameters(bodyParameters: nil,
+                                      bodyEncoding: .urlEncoding,
+                                      urlParameters: [
                                         "api_key": "0736335c71dad875790ff173cf326a73"
                                       ]
             )
