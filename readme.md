@@ -42,12 +42,6 @@ Swift 5
 
 UIKit
 
-MapKit
-
-GoogleMaps
-
-GooglePlaces
-
 ## Supported Devices
 
 iPhone SE (2nd gen)
