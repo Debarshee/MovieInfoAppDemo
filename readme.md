@@ -23,7 +23,7 @@ It is demo app for movies and tv shows database
 2) Implemented a clear all button to clear the wishlist data
 
 <p align="center">
-<img src="https://drive.google.com/file/d/183yyJIFgrEkULAKCr4wmskMlQwZkjhbV/view?usp=sharing">  <img src="https://drive.google.com/file/d/145zwCa-xvvkNcxTc34QUGlEIn7MChfUo/view?usp=sharing">  <img src="https://drive.google.com/file/d/1CTFRHVbD09thUuvwh5GVXThnrxllrEv3/view?usp=sharing">  <img src="https://drive.google.com/file/d/12DLhsoMl_bgAmUr6mbGyWQzm8Eh3dpRh/view?usp=sharing">  <img src="https://drive.google.com/file/d/1F8k5y6jcJVhJqF94mmNoTPpiWDWDvQsj/view?usp=sharing">  <img src="https://drive.google.com/file/d/1uiPPfPVLgFtrEQvamYFS8ULucbrM491H/view?usp=sharing">  
+<img src="https://i.imgur.com/ohxX1Qr.png">  <img src="https://i.imgur.com/vlKWU8S.png">  <img src="https://i.imgur.com/ohxX1Qr.png">  <img src="https://i.imgur.com/aoXuDQX.png">  <img src="https://i.imgur.com/cvKiF9T.png">  <img src="https://i.imgur.com/qnySphD.png">  <img src="https://i.imgur.com/rvITL5T.png">
 </p>
 
 ## API Reference
